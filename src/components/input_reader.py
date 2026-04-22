@@ -7,11 +7,11 @@ class InputReader:
         self.__grammar_text: str | None = None
         self.__input_symbols: list[str] = []
 
-    def read_input(self) -> int:
+    def read_input(self) -> bool:
         if len(self.__argv) != 3:
             # TODO: Here we should implement an error handler
             print("Expected 2 CLI parameters")
-            return 1
+            return False
 
         grammar_path, string = self.__argv[1], self.__argv[2]
 
@@ -19,12 +19,12 @@ class InputReader:
             self.__input_symbols = InputReader.process_string(string)
             self.__grammar_text = InputReader.read_grammar_file(grammar_path)
 
-            return 0
+            return True
         except Exception as error:
             # TODO: Here we should implement an error handler
             # also Exception is a too broad exception clause
             print(error)
-            return 1
+            return False
 
     @property
     def grammar_text(self) -> str | None:
