@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from components.error_handler import ErrorHandler
+
 
 class InputReader:
     def __init__(self, argv: list[str]):
@@ -7,24 +9,15 @@ class InputReader:
         self.__grammar_text: str | None = None
         self.__input_symbols: list[str] = []
 
-    def read_input(self) -> bool:
+    def read_input(self):
         if len(self.__argv) != 3:
-            # TODO: Here we should implement an error handler
-            print("Expected 2 CLI parameters")
-            return False
+            ErrorHandler.raise_error("Expected 2 CLI parameters")
 
         grammar_path, string = self.__argv[1], self.__argv[2]
 
-        try:
-            self.__input_symbols = InputReader.process_string(string)
-            self.__grammar_text = InputReader.read_grammar_file(grammar_path)
+        self.__input_symbols = InputReader.process_string(string)
+        self.__grammar_text = InputReader.read_grammar_file(grammar_path)
 
-            return True
-        except Exception as error:
-            # TODO: Here we should implement an error handler
-            # also Exception is a too broad exception clause
-            print(error)
-            return False
 
     @property
     def grammar_text(self) -> str | None:
@@ -42,8 +35,7 @@ class InputReader:
         :returns: The list of characters of the input string without $
         """
         if not string.endswith('$'):
-            # TODO: Here we should implement an error handler
-            print("The input string does not end with $")
+            ErrorHandler.raise_error("The input string does not end with $")
             return []
 
         return list(string[:-1])
@@ -61,6 +53,5 @@ class InputReader:
         try:
             return path.read_text(encoding='utf-8')
         except OSError as exc:
-            # TODO: Here we should implement an error handler
-            print(f"Unable to read grammar file: {path} ({exc.strerror})")
+            ErrorHandler.raise_error(f"Unable to read grammar file: {path} ({exc.strerror})")
         raise AssertionError("unreachable")

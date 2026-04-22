@@ -1,3 +1,4 @@
+from components.error_handler import ErrorHandler
 from models.grammar import Grammar
 
 
@@ -10,29 +11,18 @@ class GrammarManager:
     def __parse_grammar(self) -> Grammar | None:
         lines = [line.strip() for line in self.__grammar_text.splitlines() if line.strip()]
         if not lines:
-            # TODO: Handle error
-            print("Grammar file is empty.")
-            return
+            ErrorHandler.raise_error("Grammar file is empty.")
 
         start_symbol = GrammarManager.parse_start_declaration(lines[0])
         production_lines = lines[1:]
         if not production_lines:
-            # TODO: Handle error
-            print("Grammar file must contain at least one production.")
-            return
-
-        
+            ErrorHandler.raise_error("Grammar file must contain at least one production.")
 
     @staticmethod
     def build_grammar(start_symbol, production_lines):
         nonterminals = GrammarManager.get_nonterminals(production_lines)
         if start_symbol not in nonterminals:
-            # TODO: Handle error
-            print("START symbol must appear on the left side of a production.")
-            return
-
-
-
+            ErrorHandler.raise_error("START symbol must appear on the left side of a production.")
 
     # PARSING GRAMMAR FUNCTIONS
 
@@ -40,9 +30,7 @@ class GrammarManager:
     def parse_start_declaration(line: str):
         parts = line.split()
         if len(parts) != 2 or parts[0] != "START":
-            # TODO: Handle error
-            print("Missing START declaration.")
-            return None  # This should raise an exception
+            ErrorHandler.raise_error("Missing START declaration.")
 
         return parts[1]
 
@@ -54,23 +42,17 @@ class GrammarManager:
         :returns: A tuple (leftSide, arrow, rightSide)
         """
         if "->" not in line:
-            # TODO: Handle error
-            print(f"Malformed production line: {line}")
-            return None  # This should raise an exception
+            ErrorHandler.raise_error(f"Malformed production line: {line}")
 
         left_raw, arrow, right_raw = line.partition("->")
         left_side = left_raw.strip()
         right_part = right_raw.strip()
 
         if arrow != "->" or not left_side or not right_part:
-            # TODO: Handle error
-            print(f"Malformed production line: {line}")
-            return None  # This should raise an exception
+            ErrorHandler.raise_error(f"Malformed production line: {line}")
 
         if len(left_side.split()) != 1:
-            # TODO: Handle error
-            print(f"Malformed production line: {line}")
-            return None  # This should raise an exception
+            ErrorHandler.raise_error(f"Malformed production line: {line}")
 
         return left_side, arrow, right_part
 
@@ -86,9 +68,7 @@ class GrammarManager:
         for line in production_lines:
             left_side, _, _ = GrammarManager.split_production(line)
             if len(left_side) > 1:
-                # TODO: Handle error
-                print("This is not a context-free grammar.")
-                return set() # This should raise an exception
+                ErrorHandler.raise_error("This is not a context-free grammar.")
 
             nonterminals.add(left_side)
 
