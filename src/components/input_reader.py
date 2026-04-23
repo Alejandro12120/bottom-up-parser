@@ -6,7 +6,7 @@ from components.error_handler import ErrorHandler
 class InputReader:
     def __init__(self, argv: list[str]):
         self.__argv = argv
-        self.__grammar_text: str | None = None
+        self.__grammar_text: str = ""
         self.__input_symbols: list[str] = []
 
     def read_input(self):
@@ -20,7 +20,7 @@ class InputReader:
 
 
     @property
-    def grammar_text(self) -> str | None:
+    def grammar_text(self) -> str:
         return self.__grammar_text
 
     @property

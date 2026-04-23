@@ -1,14 +1,18 @@
+from collections import defaultdict
+
 from components.error_handler import ErrorHandler
 from models.grammar import Grammar
+from models.production import Production
+
 
 
 class GrammarManager:
 
     def __init__(self, grammar_text: str):
         self.__grammar_text = grammar_text
-        self.__grammar: Grammar | None = self.__parse_grammar()
+        self.__grammar: Grammar = self.__parse_grammar()
 
-    def __parse_grammar(self) -> Grammar | None:
+    def __parse_grammar(self) -> Grammar:
         lines = [line.strip() for line in self.__grammar_text.splitlines() if line.strip()]
         if not lines:
             ErrorHandler.raise_error("Grammar file is empty.")
@@ -18,11 +22,27 @@ class GrammarManager:
         if not production_lines:
             ErrorHandler.raise_error("Grammar file must contain at least one production.")
 
+        return GrammarManager.build_grammar(start_symbol, production_lines)
+
     @staticmethod
     def build_grammar(start_symbol, production_lines):
         nonterminals = GrammarManager.get_nonterminals(production_lines)
         if start_symbol not in nonterminals:
             ErrorHandler.raise_error("START symbol must appear on the left side of a production.")
+
+        productions = GrammarManager.parse_productions(production_lines)
+
+        grammar = Grammar(
+            terminals=GrammarManager.infer_terminals(nonterminals, productions),
+            nonterminals=nonterminals,
+            productions=productions,
+            start_symbol=start_symbol,
+            by_left_side=GrammarManager.group_by_left_side(productions)
+        )
+
+        # TODO: validate that the grammar does not have cycles
+
+        return grammar
 
     # PARSING GRAMMAR FUNCTIONS
 
@@ -36,7 +56,7 @@ class GrammarManager:
 
     @staticmethod
     def split_production(line: str) -> tuple[str, str, str]:
-        """This method receives a production line and returns the left side, the arrow and the right side
+        """This function receives a production line and returns the left side, the arrow and the right side
 
         :param line: The production line
         :returns: A tuple (leftSide, arrow, rightSide)
@@ -58,7 +78,7 @@ class GrammarManager:
 
     @staticmethod
     def get_nonterminals(production_lines: list[str]) -> set[str]:
-        """This method parses the production_lines to return a set of nonterminals
+        """This function parses the production_lines to return a set of nonterminals
 
         :param production_lines: The production lines read from the grammar file.
         :returns: A set of nonterminals
@@ -73,3 +93,71 @@ class GrammarManager:
             nonterminals.add(left_side)
 
         return nonterminals
+
+    @staticmethod
+    def parse_productions(production_lines: list[str]) -> list[Production]:
+        """This function parses the production_lines and returns a list of Production objects.
+
+        :param production_lines: The production lines read from the grammar file.
+        :returns: A list of Production
+        """
+
+        productions: list[Production] = []
+        production_id = 1
+
+        for line in production_lines:
+            left_side, _, right_side = GrammarManager.split_production(line)
+            # S -> A s / B c
+            alternatives = [alternative.strip() for alternative in right_side.split("/")]
+
+            for alternative in alternatives:
+                if not alternative:
+                    ErrorHandler.raise_error("Epsilon-productions are not supported.")
+
+                symbols = alternative.split()  # TODO: review, this, maybe is better the format S -> As / Bc
+                if not symbols or 'ε' in symbols:
+                    ErrorHandler.raise_error("Epsilon-productions are not supported.")
+
+                productions.append(
+                    Production(
+                        id=production_id,
+                        left_side=left_side,
+                        right_side=symbols,
+                    )
+                )
+                production_id += 1
+
+        return productions
+
+    @staticmethod
+    def infer_terminals(nonterminals: set[str], productions: list[Production]) -> set[str]:
+        """This function uses the list of nonterminals and the list of Production to return a set of terminals symbols.
+
+        :param nonterminals: A set of nonterminals
+        :param productions: A list of Production
+        :returns: A set of terminal symbols
+        """
+        terminals: set[str] = set()
+
+        for production in productions:
+            for symbol in production.right_side:
+                if symbol not in nonterminals:
+                    terminals.add(symbol)
+
+        return terminals
+
+    @staticmethod
+    def group_by_left_side(productions: list[Production]) -> dict[str, list[Production]]:
+        """This function uses the list of Production to return a dict where the keys are the nonterminal symbol
+        and the values are a list of Production that uses that nonterminal.
+
+        :param productions: A list of Production
+        :returns: A dict where key: nonterminal, value: list[Production]
+        """
+
+        grouped: dict[str, list[Production]] = defaultdict(list)
+
+        for production in productions:
+            grouped[production.left_side].append(production)
+
+        return grouped
