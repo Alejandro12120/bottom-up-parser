@@ -5,7 +5,6 @@ from models.grammar import Grammar
 from models.production import Production
 
 
-
 class GrammarManager:
 
     def __init__(self, grammar_text: str):
@@ -40,9 +39,17 @@ class GrammarManager:
             by_left_side=GrammarManager.group_by_left_side(productions)
         )
 
-        # TODO: validate that the grammar does not have cycles
+        # Because check if a grammar has every possible type of cycle is very hard
+        # we are only going to check if the grammar has unit cycle
+        # This type of cycle is very dangerous because we can loop infinitely between nonterminals
+        # without generating any content
+        grammar.validate_no_unit_cycles()
 
         return grammar
+
+    @property
+    def grammar(self) -> Grammar:
+        return self.__grammar
 
     # PARSING GRAMMAR FUNCTIONS
 
