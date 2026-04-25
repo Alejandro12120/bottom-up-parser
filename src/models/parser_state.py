@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from components.forest_builder import ForestBuilder
+from models.grammar import Grammar
 from models.node import Node
 
 
@@ -21,6 +22,19 @@ class ParserState:
 
         self.forest.extend([ForestBuilder.make_terminal_node(symbol) for symbol in self.remaining_input])
 
+    def is_accepted(self, grammar: Grammar, input_symbols: list[str]) -> bool:
+        """This method checks if the state is a valid state to accept the input string
+
+        :returns: True if the word is accepted in this state, False if not
+        """
+
+        return (
+            not self.remaining_input # There is no remaining input
+            and len(self.consumed) == 1 # Our forest only have one tree
+            and self.consumed[0].symbol == grammar.start_symbol # The symbol of the root matches the grammar's start symbol
+            and ParserState.get_leaves(self.consumed[0]) == input_symbols
+        )
+
     def clone(self) -> "ParserState":
         return ParserState(
             input_pos=self.input_pos,
@@ -35,3 +49,14 @@ class ParserState:
 
     def frontier(self) -> str:
         return "".join(self.remaining_input)
+
+    @staticmethod
+    def get_leaves(node: Node) -> list[str]:
+        if not node.children:
+            return [node.symbol]
+
+        frontier: list[str] = []
+        for child in node.children:
+            frontier.extend(ParserState.get_leaves(child))
+
+        return frontier
