@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components.error_handler import ErrorHandler
-from models.production import Production
+from models.grammar.production import Production
 
 
 @dataclass(slots=True)

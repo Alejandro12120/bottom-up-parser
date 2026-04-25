@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components.forest_builder import ForestBuilder
-from models.grammar import Grammar
+from models.grammar.grammar import Grammar
 from models.node import Node
 
 

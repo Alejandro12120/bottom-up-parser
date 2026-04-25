@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from models.match import Match
-from models.parser_state import ParserState
+from models.parser.match import Match
+from models.parser.parser_state import ParserState
 
 
 @dataclass(slots=True)

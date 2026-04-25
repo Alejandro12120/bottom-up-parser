@@ -1,8 +1,8 @@
 from components.forest_builder import ForestBuilder
-from models.grammar import Grammar
-from models.match import Match
-from models.parse_result import ParseResult
-from models.parser_state import ParserState
+from models.grammar.grammar import Grammar
+from models.parser.match import Match
+from models.parser.parse_result import ParseResult
+from models.parser.parser_state import ParserState
 
 
 class ParserEngine:

@@ -1,7 +1,7 @@
-from models.match import Match
+from models.parser.match import Match
 from models.node import Node
-from models.parser_state import ParserState
-from models.production import Production
+from models.parser.parser_state import ParserState
+from models.grammar.production import Production
 
 
 class ForestBuilder:

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from models.production import Production
+from models.grammar.production import Production
 
 
 @dataclass(slots=True, frozen=True)

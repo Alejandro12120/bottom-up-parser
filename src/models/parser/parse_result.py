@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 
 from models.node import Node
-from models.parser_state import ParserState
-from models.step_record import StepRecord
+from models.parser.parser_state import ParserState
 
 
 @dataclass(slots=True)

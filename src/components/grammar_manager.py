@@ -1,8 +1,8 @@
 from collections import defaultdict
 
 from components.error_handler import ErrorHandler
-from models.grammar import Grammar
-from models.production import Production
+from models.grammar.grammar import Grammar
+from models.grammar.production import Production
 
 
 class GrammarManager:
