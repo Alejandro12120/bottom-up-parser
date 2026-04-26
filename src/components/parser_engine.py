@@ -16,6 +16,11 @@ class ParserEngine:
         self.__input_symbols: list[str] = []
 
     def parse(self, input_symbols: list[str]) -> ParseResult:
+        """This is the core method, it invokes the parser, it receives the input symbols and returns a ParseResult object
+
+        :param input_symbols: The input symbols of the string that it should parse
+        :returns: A ParseResult object
+        """
         self.__step_counter = 0
         self.__input_symbols = list(input_symbols)
 
@@ -42,6 +47,12 @@ class ParserEngine:
         )
 
     def __search(self, state: ParserState) -> ParserState | None:
+        """This is the recursion function, it uses the call stack of Python as backtrack stack.
+        It receives a state and returns the final state or None if not.
+
+        :param state: A ParserState object
+        :returns: The final state as a ParserState object or none if it is not a final state.
+        """
         # Stop condition
         if state.is_accepted(self.__grammar, self.__input_symbols):
             return state
@@ -123,6 +134,11 @@ class ParserEngine:
         return None
 
     def __find_matches(self, state: ParserState) -> list[Match]:
+        """This method finds all the possible matches in a specific ParserState, and returns a list.
+
+        :param state: A ParserState object
+        :returns: The list of possible matches
+        """
         matches: list[Match] = []
         working_symbols = [node.symbol for node in state.consumed]
 

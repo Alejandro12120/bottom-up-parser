@@ -63,7 +63,7 @@ class OutputFormatter:
 
         if result.accepted and result.final_root is not None:
             sections.append("FINAL PARSE TREE")
-            # TODO: Implemente a render tree function
+            # TODO: Implement a render tree function
             sections.append("REVERSED RIGHTMOST DERIVATION")
             sections.append(OutputFormatter.format_derivation(result.final_state.right_most_derivation_hist))
         return "\n\n".join(section for section in sections if section)
