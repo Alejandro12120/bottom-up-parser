@@ -1,5 +1,7 @@
 from components.forest_builder import ForestBuilder
+from components.output_formatter import OutputFormatter
 from models.grammar.grammar import Grammar
+from models.parser.backtrack_frame import BacktrackFrame
 from models.parser.match import Match
 from models.parser.parse_result import ParseResult
 from models.parser.parser_state import ParserState
@@ -17,14 +19,9 @@ class ParserEngine:
         self.__step_counter = 0
         self.__input_symbols = list(input_symbols)
 
-        initial_state = ParserState(
-            input_pos=0,
-            forest=[],
-            consumed=[],
-            remaining_input=list(input_symbols),
-            right_most_derivation_hist=[]
-        )
-        initial_state.build_full_forest()
+        self.__forest_builder.state.build_full_forest()
+
+        initial_state = self.__forest_builder.state.clone()
 
         # Instead of a while with a backtrack stack we are going to implement the backtrack via recursion
         # Therefore the backtrack stack will be the call stack of Python
@@ -51,17 +48,79 @@ class ParserEngine:
 
         matches = self.__find_matches(state)
         if matches:
-            #choose the first matching reduction
-             #save the remaining alternatives in the backtracking stack
-             #apply the reduction
-             #record a REDUCE step
-             #if the forest contains one tree rooted at the start symbol
-             #and its frontier equals the input word without '$':
-             #return ACCEPT
-             #continue
-            pass
+            # We save the remaining alternatives
+            base_state = state.clone()
+            frame = BacktrackFrame(state=base_state.clone(), alternatives=matches[1:])
 
-        pass
+            for match_index, match in enumerate(matches):
+                candidate_state = frame.state.clone()
+
+                self.__forest_builder.state = candidate_state
+                self.__forest_builder.apply_reduction(match)
+
+                self.__step_counter += 1
+                OutputFormatter.record_step(
+                    step_number=self.__step_counter,
+                    action="REDUCE",
+                    state=candidate_state,
+                    production=match.production.format()
+                )
+
+                # We apply recursion
+                result = self.__search(candidate_state)
+                if result is not None:
+                    return result
+
+                # If the result is None, we have to backtrack
+                restored_state = base_state.clone()
+                self.__forest_builder.state = restored_state
+
+                self.__step_counter += 1
+                OutputFormatter.record_step(
+                    step_number=self.__step_counter,
+                    action="BACKTRACK",
+                    state=restored_state,
+                    undo=match.production.format(),
+                )
+
+                # if match_index < len(matches) - 1:
+                #     frame.alternatives = matches[match_index + 1:]
+
+            # If we have no matches left, we shift a symbol
+            if state.remaining_input:
+                shifted_state = base_state.clone()
+                symbol = state.remaining_input[0]
+
+                self.__forest_builder.state = shifted_state
+                self.__forest_builder.apply_shift(symbol)
+
+                self.__step_counter += 1
+                OutputFormatter.record_step(
+                    step_number=self.__step_counter,
+                    action="SHIFT",
+                    state=shifted_state,
+                    symbol=symbol,
+                )
+
+                return self.__search(shifted_state)
+
+        if state.remaining_input:
+            shifted_state = state.clone()
+            symbol = state.remaining_input[0]
+
+            self.__forest_builder.state = shifted_state
+            self.__forest_builder.apply_shift(symbol)
+
+            self.__step_counter += 1
+            OutputFormatter.record_step(
+                step_number=self.__step_counter,
+                action="SHIFT",
+                state=shifted_state,
+                symbol=symbol,
+            )
+
+            return self.__search(shifted_state)
+        return None
 
     def __find_matches(self, state: ParserState) -> list[Match]:
         matches: list[Match] = []
@@ -92,3 +151,7 @@ class ParserEngine:
                         )
                     )
         return matches
+
+    @property
+    def step_counter(self):
+        return self.__step_counter

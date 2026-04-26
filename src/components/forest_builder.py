@@ -48,6 +48,14 @@ class ForestBuilder:
         self.__state.right_most_derivation_hist.append(match.production.id)
         self.__state.build_full_forest()
 
+    @property
+    def state(self):
+        return self.__state
+
+    @state.setter
+    def state(self, new_state: ParserState):
+        self.__state = new_state
+
     @staticmethod
     def make_terminal_node(symbol: str) -> Node:
         """This function creates a node for a terminal (a leaf) from a symbol
