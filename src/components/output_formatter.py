@@ -1,3 +1,4 @@
+from models.node import Node
 from models.parser.parse_result import ParseResult
 from models.parser.parser_state import ParserState
 from models.step_record import StepRecord
@@ -63,7 +64,7 @@ class OutputFormatter:
 
         if result.accepted and result.final_root is not None:
             sections.append("FINAL PARSE TREE")
-            # TODO: Implement a render tree function
+            sections.append(OutputFormatter.render_tree(result.final_root))
             sections.append("REVERSED RIGHTMOST DERIVATION")
             sections.append(OutputFormatter.format_derivation(result.final_state.right_most_derivation_hist))
         return "\n\n".join(section for section in sections if section)
@@ -71,3 +72,54 @@ class OutputFormatter:
     @staticmethod
     def format_derivation(history: list[int]) -> str:
         return f"({','.join(str(item) for item in history)})"
+
+    @staticmethod
+    def render_tree(node: Node, root_prefix: str = "", child_prefix: str = ""):
+        # Final tree:
+        #   S/1
+        #   ├── S/2
+        #   │   └── a
+        #   └── A/4
+        #       └── b
+        # In each iteration each forest tree is:
+        #  [0] S/1
+        #      ├── S/2
+        #      │   └── a
+        #      └── A/4
+        #          └── b
+
+        lines = [f"{root_prefix}{node.label()}"]
+
+        for child_index, child in enumerate(node.children):
+            is_last = child_index == len(node.children) - 1
+
+            branch = "└── " if is_last else "├── "
+            extension = "    " if is_last else "│   "
+
+            # Now we need a recursive function to render each child of the child node
+            lines.extend(OutputFormatter.render_child(child, child_prefix, branch, extension))
+
+        return "\n".join(lines)
+
+
+    @staticmethod
+    def render_child(node: Node, prefix: str, branch: str, extension: str):
+        lines = [f"{prefix}{branch}{node.label()}"]
+
+        for child_index, child in enumerate(node.children):
+            is_last = child_index == len(node.children) - 1
+
+            child_branch = "└── " if is_last else "├── "
+            child_extension = "    " if is_last else "│   "
+
+            # Call it recursively
+            lines.extend(
+                OutputFormatter.render_child(
+                    child,
+                    prefix + extension,
+                    child_branch,
+                    child_extension,
+                )
+            )
+        return lines
+
