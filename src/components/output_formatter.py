@@ -23,7 +23,7 @@ class OutputFormatter:
             undo=undo,
             working_part=state.working_part(),
             frontier=state.frontier(),
-            forest_snapshot="", # TODO: Implement a render forest function
+            forest_snapshot=OutputFormatter.render_forest(state.forest),
         )
 
         if step_number > 1:
@@ -72,6 +72,18 @@ class OutputFormatter:
     @staticmethod
     def format_derivation(history: list[int]) -> str:
         return f"({','.join(str(item) for item in history)})"
+
+    @staticmethod
+    def render_forest(forest: list[Node]):
+        if not forest:
+            return "(empty)"
+
+        lines: list[str] = []
+
+        for index, node in enumerate(forest):
+            lines.extend(OutputFormatter.render_tree(node, root_prefix=f"[{index}] ", child_prefix="    "))
+
+        return "\n".join(lines)
 
     @staticmethod
     def render_tree(node: Node, root_prefix: str = "", child_prefix: str = ""):
