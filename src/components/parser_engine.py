@@ -171,3 +171,11 @@ class ParserEngine:
     @property
     def step_counter(self):
         return self.__step_counter
+#
+#    @property
+#    def forest_builder(self):
+#        return self.__forest_builder
+#
+#    @forest_builder.setter
+#    def forest_builder(self, forest_builder: ForestBuilder):
+#        self.__forest_builder = forest_builder

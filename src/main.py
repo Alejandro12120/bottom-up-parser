@@ -16,23 +16,29 @@ if __name__ == "__main__":
         grammar_manager = GrammarManager(input_reader.grammar_text)
 
         # Because forest_builder requires a ParserState, here we are going to initialize the initial step
-        engine = ParserEngine(
-            grammar=grammar_manager.grammar,
-            forest_builder=ForestBuilder(ParserState(
-                input_pos=0,
-                forest=[],
-                consumed=[],
-                remaining_input=list(input_reader.input_symbols),
-                right_most_derivation_hist=[],
-            ))
-        )
+        for word in input_reader.input_words:
+            input_symbols = InputReader.process_string(word)
 
-        result = engine.parse(input_reader.input_symbols)
-        if engine.step_counter > 0:
-            print()
+            # TODO: only initialise ParserEngine one time?
+            engine = ParserEngine(
+                grammar=grammar_manager.grammar,
+                forest_builder=ForestBuilder(ParserState(
+                    input_pos=0,
+                    forest=[],
+                    consumed=[],
+                    remaining_input=list(input_symbols),
+                    right_most_derivation_hist=[],
+                ))
+            )
 
-        print(OutputFormatter.format_result(result))
-        exit(0 if result.accepted else 1)
+            result = engine.parse(input_symbols)
+            if engine.step_counter > 0:
+                print()
+
+            print(OutputFormatter.format_result(result))
+            print("=" * 80)
+
+        exit(1) # TODO: exit 0 if at least one word is rejected?
     except ParserError as error:
         print(ErrorHandler.format_error(error))
         exit(1)
