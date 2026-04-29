@@ -40,22 +40,21 @@ class InputReader:
 
         path = Path(words_path)
         try:
-            content = path.read_text(encoding='utf-8')
+            content = path.read_text(encoding="utf-8")
+            content = content.replace("\n", "").replace("\r", "")
+
             if not content:
                 ErrorHandler.raise_error("Words file is empty.")
 
             if not content.endswith("$"):
-                ErrorHandler.raise_error("Words file msut end with $.")
+                ErrorHandler.raise_error("Words file must end with $.")
 
+            words = content.split("$")[:-1]
 
-            content = content.replace("\n", "").replace("\r", "")
-
-            parts = content.split('$')
-
-            if any(word == "" for word in parts):
+            if any(word == "" for word in words):
                 ErrorHandler.raise_error("Empty words are not supported.")
 
-            return [word + '$' for word in parts[:-1]]
+            return [word + "$" for word in words]
         except OSError as exc:
             ErrorHandler.raise_error(f"Unable to read words file: {path} ({exc.strerror})")
         raise AssertionError("unreachable")
