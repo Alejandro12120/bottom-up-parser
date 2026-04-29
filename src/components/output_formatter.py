@@ -81,7 +81,7 @@ class OutputFormatter:
         lines: list[str] = []
 
         for index, node in enumerate(forest):
-            lines.extend(OutputFormatter.render_tree(node, root_prefix=f"[{index}] ", child_prefix="    "))
+            lines.append(OutputFormatter.render_tree(node, root_prefix=f"[{index}] ", child_prefix="    "))
 
         return "\n".join(lines)
 

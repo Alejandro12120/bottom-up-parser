@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-from components.forest_builder import ForestBuilder
 from models.grammar.grammar import Grammar
 from models.node import Node
 
@@ -20,8 +19,10 @@ class ParserState:
         """This method builds the total forest = consumed + remaining_input_as_terminal_nodes"""
         self.forest = list(self.consumed)
 
-        self.forest.extend([ForestBuilder.make_terminal_node(symbol) for symbol in self.remaining_input])
-
+        self.forest.extend(
+            Node(symbol=symbol, production_id=None, children=[])
+            for symbol in self.remaining_input
+        )
     def is_accepted(self, grammar: Grammar, input_symbols: list[str]) -> bool:
         """This method checks if the state is a valid state to accept the input string
 
