@@ -26,6 +26,10 @@ class InputReader:
         return self.__grammar_text
 
     @property
+    def output_path(self) -> str:
+        return self.__output_path
+
+    @property
     def input_words(self) -> list[str]:
         return self.__input_words
 

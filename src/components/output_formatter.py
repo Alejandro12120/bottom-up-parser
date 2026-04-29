@@ -14,7 +14,7 @@ class OutputFormatter:
             symbol: str | None = None,
             production: str | None = None,
             undo: str | None = None,
-    ) -> None:
+    ) -> str:
         step = StepRecord(
             step_number=step_number,
             action=action,
@@ -26,10 +26,7 @@ class OutputFormatter:
             forest_snapshot=OutputFormatter.render_forest(state.forest),
         )
 
-        if step_number > 1:
-            print("")
-        print(OutputFormatter.format_step(step))
-        print("")
+        return OutputFormatter.format_step(step)
 
     @staticmethod
     def format_step(step: StepRecord) -> str:
