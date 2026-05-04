@@ -2,6 +2,7 @@ from collections import defaultdict
 
 from components.error_handler import ErrorHandler
 from models.grammar.grammar import Grammar
+from models.grammar.grammar_line import GrammarLine
 from models.grammar.production import Production
 
 
@@ -12,22 +13,43 @@ class GrammarManager:
         self.__grammar: Grammar = self.__parse_grammar()
 
     def __parse_grammar(self) -> Grammar:
-        lines = [line.strip() for line in self.__grammar_text.splitlines() if line.strip()]
+        lines = GrammarManager.collect_grammar_lines(self.__grammar_text)
         if not lines:
             ErrorHandler.raise_error("Grammar file is empty.")
 
-        start_symbol = GrammarManager.parse_start_declaration(lines[0])
+        start_line = lines[0]
+
+        start_symbol = GrammarManager.parse_start_declaration(start_line)
+
         production_lines = lines[1:]
         if not production_lines:
-            ErrorHandler.raise_error("Grammar file must contain at least one production.")
+            ErrorHandler.raise_error(
+                f"Grammar error after line {start_line.number}: "
+                "expected at least one production after START declaration."
+            )
 
-        return GrammarManager.build_grammar(start_symbol, production_lines)
+        return GrammarManager.build_grammar(start_line, start_symbol, production_lines)
 
     @staticmethod
-    def build_grammar(start_symbol, production_lines):
+    def collect_grammar_lines(grammar_text: str) -> list[GrammarLine]:
+        lines: list[GrammarLine] = []
+
+        for number, raw_line in enumerate(grammar_text.splitlines(), start=1):
+            stripped = raw_line.strip()
+            if stripped:
+                lines.append(GrammarLine(number=number, text=stripped))
+
+        return lines
+
+    @staticmethod
+    def build_grammar(start_line: GrammarLine, start_symbol: str, production_lines: list[GrammarLine]):
         nonterminals = GrammarManager.get_nonterminals(production_lines)
         if start_symbol not in nonterminals:
-            ErrorHandler.raise_error("START symbol must appear on the left side of a production.")
+            GrammarManager.raise_grammar_error(
+                line=start_line,
+                expected="START symbol to appear on the left side of a production",
+                found=start_symbol,
+            )
 
         productions = GrammarManager.parse_productions(production_lines)
 
@@ -43,6 +65,7 @@ class GrammarManager:
         # we are only going to check if the grammar has unit cycle
         # This type of cycle is very dangerous because we can loop infinitely between nonterminals
         # without generating any content
+
         grammar.validate_no_unit_cycles()
 
         return grammar
@@ -51,40 +74,75 @@ class GrammarManager:
     def grammar(self) -> Grammar:
         return self.__grammar
 
+    @staticmethod
+    def raise_grammar_error(line: GrammarLine, expected: str, found: str | None = None) -> None:
+        if found is None:
+            found = line.text
+
+        ErrorHandler.raise_error(
+            f"Grammar error at line {line.number}: expected {expected}, found '{found}'"
+        )
+
     # PARSING GRAMMAR FUNCTIONS
 
     @staticmethod
-    def parse_start_declaration(line: str):
-        parts = line.split()
+    def parse_start_declaration(line: GrammarLine):
+        parts = line.text.split()
         if len(parts) != 2 or parts[0] != "START":
-            ErrorHandler.raise_error("Missing START declaration.")
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="START declaration in format 'START <symbol>'",
+            )
 
         return parts[1]
 
     @staticmethod
-    def split_production(line: str) -> tuple[str, str, str]:
+    def split_production(line: GrammarLine) -> tuple[str, str, str]:
         """This function receives a production line and returns the left side, the arrow and the right side
 
         :param line: The production line
         :returns: A tuple (leftSide, arrow, rightSide)
         """
-        if "->" not in line:
-            ErrorHandler.raise_error(f"Malformed production line: {line}")
+        if "->" not in line.text:
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="production in format '<NonTerminal> -> <symbols>'",
+            )
 
-        left_raw, arrow, right_raw = line.partition("->")
+        left_raw, arrow, right_raw = line.text.partition("->")
         left_side = left_raw.strip()
         right_part = right_raw.strip()
 
-        if arrow != "->" or not left_side or not right_part:
-            ErrorHandler.raise_error(f"Malformed production line: {line}")
+        if arrow != "->":
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="production arrow '->'",
+            )
 
-        if len(left_side.split()) != 1:
-            ErrorHandler.raise_error(f"Malformed production line: {line}")
+        if not left_side:
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="one nonterminal before '->'",
+            )
+
+        if not right_part:
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="symbols after '->'",
+            )
+
+        left_symbols = left_side.split()
+        if len(left_symbols) != 1:
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="exactly one nonterminal on the left side",
+                found=left_side,
+            )
 
         return left_side, arrow, right_part
 
     @staticmethod
-    def get_nonterminals(production_lines: list[str]) -> set[str]:
+    def get_nonterminals(production_lines: list[GrammarLine]) -> set[str]:
         """This function parses the production_lines to return a set of nonterminals
 
         :param production_lines: The production lines read from the grammar file.
@@ -92,17 +150,22 @@ class GrammarManager:
         """
 
         nonterminals: set[str] = set()
+
         for line in production_lines:
             left_side, _, _ = GrammarManager.split_production(line)
             if len(left_side) > 1:
-                ErrorHandler.raise_error("This is not a context-free grammar.")
+                GrammarManager.raise_grammar_error(
+                    line=line,
+                    expected="context-free production with one-symbol left side",
+                    found=left_side,
+                )
 
             nonterminals.add(left_side)
 
         return nonterminals
 
     @staticmethod
-    def parse_productions(production_lines: list[str]) -> list[Production]:
+    def parse_productions(production_lines: list[GrammarLine]) -> list[Production]:
         """This function parses the production_lines and returns a list of Production objects.
 
         :param production_lines: The production lines read from the grammar file.
@@ -119,17 +182,25 @@ class GrammarManager:
 
             for alternative in alternatives:
                 if not alternative:
-                    ErrorHandler.raise_error("Epsilon-productions are not supported.")
+                    GrammarManager.raise_grammar_error(
+                        line=line,
+                        expected="non-empty alternative after '/'",
+                    )
 
                 symbols = alternative.split()  # TODO: review, this, maybe is better the format S -> As / Bc
                 if not symbols or 'ε' in symbols:
-                    ErrorHandler.raise_error("Epsilon-productions are not supported.")
+                    GrammarManager.raise_grammar_error(
+                        line=line,
+                        expected="non-empty symbols without epsilon",
+                        found=alternative,
+                    )
 
                 productions.append(
                     Production(
                         id=production_id,
                         left_side=left_side,
                         right_side=symbols,
+                        source_line=line.number,
                     )
                 )
                 production_id += 1

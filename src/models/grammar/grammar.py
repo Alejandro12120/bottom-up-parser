@@ -13,52 +13,85 @@ class Grammar:
     by_left_side: dict[str, list[Production]]
 
     def validate_no_unit_cycles(self):
-        """This method checks if the grammar contains any unit cycles
+        """this method checks if the grammar contains any unit cycles.
 
         :raises ParserError: if the grammar contains unit cycles
         """
 
-        # The method we are going to use here is pretty simple, we are going to create a graph using
-        # unit rules, for example: S -> A, A -> S
-        # After that we are going to use DFS, that way for each symbol we are going to throw DFS and check
-        # if we are able to arrive to a symbol that was previously visited in the current path.
+        # the method we are going to use here is pretty simple: we create a graph using
+        # unit productions, for example: S -> A, A -> S.
+        # after that, we run DFS from each nonterminal and check if we are able
+        # to reach a symbol that is already in the current recursion path.
 
-        # We are going to use an adjacent array representation for the graph
-        graph: dict[str, set[str]] = {symbol: set() for symbol in self.nonterminals}
+        # we are going to use an adjacency list representation for the graph.
+        graph: dict[str, list[Production]] = {symbol: [] for symbol in self.nonterminals}
 
         for production in self.productions:
-            # Check if it is a unit production
+            # check if the production is a unit production.
             if len(production.right_side) == 1 and production.right_side[0] in self.nonterminals:
-                graph[production.left_side].add(production.right_side[0])
+                graph[production.left_side].append(production)
 
-        visiting: set[str] = set()  # This is the current path of each DFS
+        visiting: list[str] = []  # this is the current path of each DFS.
         visited: set[
-            str] = set()  # Each node that was successfully checked there is no need to explore it again, so we insert it here.
+            str] = set()  # each node that was successfully checked is inserted here, so we do not explore it again.
 
-        # This is going to be our recursive function to DFS
-        def visit(symbol: str) -> bool:
+        # this is going to be our recursive DFS function.
+        def visit(symbol: str, incoming_production: Production | None) -> tuple[list[str], Production | None] | None:
             # if the node is already in the current recursion path,
             # we found a cycle.
             if symbol in visiting:
-                return True
+                cycle_start = visiting.index(symbol)
+                return visiting[cycle_start:] + [symbol], incoming_production
 
-            # if the node was already processed before, no need to explore it again.
+            # if the node was already processed before, there is no need to explore it again.
             if symbol in visited:
-                return False
+                return None
 
             # mark the node as part of the current DFS path.
-            visiting.add(symbol)
+            visiting.append(symbol)
 
             # recursively visit all neighbors reachable through unit productions.
-            for neighbor in graph[symbol]:
-                if visit(neighbor):
-                    return True
+            for production in graph[symbol]:
+                next_symbol = production.right_side[0]
+                cycle = visit(next_symbol, production)
 
-            # Remove the node from the current DFS path and mark it as fully processed.
-            visiting.remove(symbol)
+                if cycle is not None:
+                    return cycle
+
+            # remove the node from the current DFS path and mark it as fully processed.
+            visiting.pop()
             visited.add(symbol)
-            return False
+            return None
 
-        for symbol in graph:
-            if visit(symbol):
-                ErrorHandler.raise_error("Cyclic grammar is not supported.")
+        # we preserve the production order when choosing DFS roots, so the detected
+        # cycle is stable and easier to understand in the error message.
+        # For example, if we use only the self.nonterminals set instead, since set does not guarantee order
+        # we can get the same cycle printed in a different ways
+        # S -> A -> B -> S
+        # or
+        # A -> B -> S -> A
+        # or
+        # B -> S -> A -> B
+        root_symbols: list[str] = []
+        for production in self.productions:
+            if production.left_side not in root_symbols:
+                root_symbols.append(production.left_side)
+
+        for symbol in root_symbols:
+            cycle = visit(symbol, None)
+            if cycle is None:
+                continue
+
+            cycle_symbols, production = cycle
+            cycle_text = " -> ".join(cycle_symbols)
+
+            if production is not None and production.source_line is not None:
+                # we print the line of the production which closed the cycle
+                ErrorHandler.raise_error(
+                    f"Grammar error at line {production.source_line}: "
+                    f"expected grammar without unit cycles, found unit cycle {cycle_text}."
+                )
+
+            ErrorHandler.raise_error(
+                f"Grammar error: expected grammar without unit cycles, found unit cycle {cycle_text}."
+            )
