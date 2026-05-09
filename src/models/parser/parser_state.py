@@ -26,6 +26,8 @@ class ParserState:
     def is_accepted(self, grammar: Grammar, input_symbols: list[str]) -> bool:
         """This method checks if the state is a valid state to accept the input string
 
+        :param grammar: The grammar used by the parser
+        :param input_symbols: The input symbols of the string that it should parse
         :returns: True if the word is accepted in this state, False if not
         """
 
@@ -37,6 +39,10 @@ class ParserState:
         )
 
     def clone(self) -> "ParserState":
+        """This method returns a copy of the parser state.
+
+        :returns: A copy of the parser state
+        """
         return ParserState(
             input_pos=self.input_pos,
             forest=[node.clone() for node in self.forest],
@@ -46,13 +52,26 @@ class ParserState:
         )
 
     def working_part(self) -> str:
+        """This method returns the consumed symbols as text.
+
+        :returns: The working part
+        """
         return "".join(node.symbol for node in self.consumed)
 
     def frontier(self) -> str:
+        """This method returns the remaining input symbols as text.
+
+        :returns: The frontier
+        """
         return "".join(self.remaining_input)
 
     @staticmethod
     def get_leaves(node: Node) -> list[str]:
+        """This function returns the leaves of a tree.
+
+        :param node: The root node of the tree
+        :returns: A list of leaf symbols
+        """
         if not node.children:
             return [node.symbol]
 

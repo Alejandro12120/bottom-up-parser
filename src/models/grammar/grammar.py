@@ -37,6 +37,12 @@ class Grammar:
 
         # this is going to be our recursive DFS function.
         def visit(symbol: str, incoming_production: Production | None) -> tuple[list[str], Production | None] | None:
+            """This function visits a symbol in the unit productions graph.
+
+            :param symbol: The symbol to visit
+            :param incoming_production: The production used to reach the symbol
+            :returns: The detected cycle and production, or None if there is no cycle
+            """
             # if the node is already in the current recursion path,
             # we found a cycle.
             if symbol in visiting:

@@ -10,6 +10,10 @@ class ForestBuilder:
     """
 
     def __init__(self, state: ParserState):
+        """This method initializes the forest builder with a parser state.
+
+        :param state: The parser state
+        """
         self.__state = state
 
     def apply_shift(self, symbol: str):
@@ -50,10 +54,18 @@ class ForestBuilder:
 
     @property
     def state(self):
+        """This method returns the current parser state.
+
+        :returns: The current parser state
+        """
         return self.__state
 
     @state.setter
     def state(self, new_state: ParserState):
+        """This method updates the current parser state.
+
+        :param new_state: The new parser state
+        """
         self.__state = new_state
 
     @staticmethod

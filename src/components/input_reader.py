@@ -5,12 +5,17 @@ from components.error_handler import ErrorHandler
 
 class InputReader:
     def __init__(self, argv: list[str]):
+        """This method initializes the input reader with the CLI arguments.
+
+        :param argv: The CLI arguments
+        """
         self.__argv = argv
         self.__grammar_text: str = ""
         self.__output_path: str = ""
         self.__input_words: list[str] = []
 
     def read_input(self):
+        """This method reads and stores the grammar, words and output path from the CLI arguments."""
         if len(self.__argv) != 4:
             ErrorHandler.raise_error("Expected 3 CLI parameters.")
 
@@ -23,14 +28,26 @@ class InputReader:
 
     @property
     def grammar_text(self) -> str:
+        """This method returns the grammar text.
+
+        :returns: The grammar text
+        """
         return self.__grammar_text
 
     @property
     def output_path(self) -> str:
+        """This method returns the output path.
+
+        :returns: The output path
+        """
         return self.__output_path
 
     @property
     def input_words(self) -> list[str]:
+        """This method returns the input words.
+
+        :returns: A list of input words
+        """
         return self.__input_words
 
     @staticmethod

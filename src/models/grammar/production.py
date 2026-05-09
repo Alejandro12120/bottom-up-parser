@@ -9,4 +9,8 @@ class Production:
     source_line: int | None = None
 
     def format(self) -> str:
+        """This method formats the production as text.
+
+        :returns: The formatted production
+        """
         return f"{self.id}) {self.left_side} -> {' '.join(self.right_side)}"

@@ -11,6 +11,12 @@ from models.parser.parser_state import ParserState
 class ParserEngine:
 
     def __init__(self, grammar: Grammar, forest_builder: ForestBuilder, output_writer: OutputWriter):
+        """This method initializes the parser engine.
+
+        :param grammar: The grammar used by the parser
+        :param forest_builder: The forest builder used to update parser states
+        :param output_writer: The output writer used to write parser steps
+        """
         self.__grammar = grammar
         self.__forest_builder = forest_builder
         self.__output_writer = output_writer
@@ -176,6 +182,10 @@ class ParserEngine:
 
     @property
     def step_counter(self):
+        """This method returns the number of parser steps.
+
+        :returns: The number of parser steps
+        """
         return self.__step_counter
 #
 #    @property

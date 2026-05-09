@@ -9,10 +9,18 @@ from models.grammar.production import Production
 class GrammarManager:
 
     def __init__(self, grammar_text: str):
+        """This method initializes the grammar manager with the grammar text.
+
+        :param grammar_text: The grammar text
+        """
         self.__grammar_text = grammar_text
         self.__grammar: Grammar = self.__parse_grammar()
 
     def __parse_grammar(self) -> Grammar:
+        """This method parses the grammar text and returns a Grammar object.
+
+        :returns: A Grammar object
+        """
         lines = GrammarManager.collect_grammar_lines(self.__grammar_text)
         if not lines:
             ErrorHandler.raise_error("Grammar file is empty.")
@@ -32,6 +40,11 @@ class GrammarManager:
 
     @staticmethod
     def collect_grammar_lines(grammar_text: str) -> list[GrammarLine]:
+        """This function collects the non-empty grammar lines.
+
+        :param grammar_text: The grammar text
+        :returns: A list of GrammarLine
+        """
         lines: list[GrammarLine] = []
 
         for number, raw_line in enumerate(grammar_text.splitlines(), start=1):
@@ -43,6 +56,13 @@ class GrammarManager:
 
     @staticmethod
     def build_grammar(start_line: GrammarLine, start_symbol: str, production_lines: list[GrammarLine]):
+        """This function builds a Grammar object from the start symbol and production lines.
+
+        :param start_line: The line where the START declaration is
+        :param start_symbol: The start symbol of the grammar
+        :param production_lines: The production lines read from the grammar file.
+        :returns: A Grammar object
+        """
         nonterminals = GrammarManager.get_nonterminals(production_lines)
         if start_symbol not in nonterminals:
             GrammarManager.raise_grammar_error(
@@ -72,10 +92,20 @@ class GrammarManager:
 
     @property
     def grammar(self) -> Grammar:
+        """This method returns the parsed grammar.
+
+        :returns: A Grammar object
+        """
         return self.__grammar
 
     @staticmethod
     def raise_grammar_error(line: GrammarLine, expected: str, found: str | None = None) -> None:
+        """This function raises a grammar error with line information.
+
+        :param line: The grammar line where the error was found
+        :param expected: The expected grammar format
+        :param found: The found grammar text
+        """
         if found is None:
             found = line.text
 
@@ -87,6 +117,11 @@ class GrammarManager:
 
     @staticmethod
     def parse_start_declaration(line: GrammarLine):
+        """This function parses the START declaration and returns the start symbol.
+
+        :param line: The START declaration line
+        :returns: The start symbol
+        """
         parts = line.text.split()
         if len(parts) != 2 or parts[0] != "START":
             GrammarManager.raise_grammar_error(

@@ -26,6 +26,12 @@ def read_file(path: Path) -> str:
 
 
 def compare_outputs(expected: str, actual: str) -> str:
+    """This function compares two strings and returns the difference
+
+    :param expected: The expected string
+    :param actual: The actual string
+    :returns: The difference between both strings
+    """
     return "\n".join(
         difflib.unified_diff(
             expected.splitlines(),
@@ -38,6 +44,11 @@ def compare_outputs(expected: str, actual: str) -> str:
 
 
 def run_test(test: FunctionalTest) -> bool:
+    """This function executes a FunctionalTest and returns True if the test passed or False otherwise
+
+    :param test: A FunctionalTest object
+    :returns: True if the test passed or False otherwise
+    """
     grammar_file = TESTS_DIR / test.grammar_path
     words_file = TESTS_DIR / test.words_path
     expected_file = TESTS_DIR / test.expected_path
@@ -93,23 +104,6 @@ def run_test(test: FunctionalTest) -> bool:
         print(result.stderr)
 
     return False
-
-
-def run_all_tests(tests_list: list[FunctionalTest]) -> None:
-    passed = 0
-
-    for test in tests_list:
-        if run_test(test):
-            passed += 1
-
-        print()
-
-    total = len(tests_list)
-    print(f"Final result: {passed}/{total} tests passed.")
-
-    if passed != total:
-        sys.exit(1)
-
 
 if __name__ == "__main__":
     tests: list[FunctionalTest] = [
@@ -228,4 +222,17 @@ if __name__ == "__main__":
             expected_path="expected/result_19.txt",
         ),
     ]
-    run_all_tests(tests)
+
+    passed = 0
+
+    for test in tests:
+        if run_test(test):
+            passed += 1
+
+        print()
+
+    total = len(tests)
+    print(f"Final result: {passed}/{total} tests passed.")
+
+    if passed != total:
+        sys.exit(1)
