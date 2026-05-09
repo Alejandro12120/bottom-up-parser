@@ -12,11 +12,16 @@ from models.parser.parser_state import ParserState
 if __name__ == "__main__":
     writer = None
     try:
+        if len(sys.argv) == 4:
+            writer = OutputWriter(sys.argv[3])
+
         input_reader = InputReader(sys.argv)
         input_reader.read_input()
 
+        if writer is None:
+            raise AssertionError("Output writer was not initialized.")
+
         grammar_manager = GrammarManager(input_reader.grammar_text)
-        writer = OutputWriter(input_reader.output_path)
 
         # Because forest_builder requires a ParserState, here we are going to initialize the initial step
         for word in input_reader.input_words:
@@ -44,7 +49,13 @@ if __name__ == "__main__":
 
         exit(0) # TODO: exit 0 if at least one word is rejected?
     except ParserError as error:
-        print(ErrorHandler.format_error(error))
+        formatted_error = ErrorHandler.format_error(error)
+
+        if writer is not None:
+            writer.write(formatted_error)
+        else:
+            print(formatted_error)
+
         exit(1)
     finally:
         if writer is not None:
