@@ -1,0 +1,29 @@
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : 
+FOREST
+[0] a
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+
+
+ACCEPTED
+
+FINAL PARSE TREE
+
+S/2
+└── a
+
+REVERSED RIGHTMOST DERIVATION
+
+(2)
+================================================================================

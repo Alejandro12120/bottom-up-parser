@@ -27,7 +27,6 @@ if __name__ == "__main__":
         for word in input_reader.input_words:
             input_symbols = InputReader.process_string(word)
 
-            # TODO: only initialise ParserEngine one time?
             engine = ParserEngine(
                 grammar=grammar_manager.grammar,
                 forest_builder=ForestBuilder(ParserState(
@@ -47,7 +46,7 @@ if __name__ == "__main__":
             writer.write(OutputFormatter.format_result(result))
             writer.write("=" * 80)
 
-        exit(0) # TODO: exit 0 if at least one word is rejected?
+        exit(0)
     except ParserError as error:
         formatted_error = ErrorHandler.format_error(error)
 

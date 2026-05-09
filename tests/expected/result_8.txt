@@ -1,0 +1,1 @@
+ERROR: Words file must end with $.

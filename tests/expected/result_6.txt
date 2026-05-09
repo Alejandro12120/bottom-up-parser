@@ -1,0 +1,28 @@
+STEP 1
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : b
+FRONTIER : 
+FOREST
+[0] b
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : A
+FRONTIER : 
+FOREST
+[0] A/4
+    └── b
+
+STEP 3
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : b
+FRONTIER : 
+FOREST
+[0] b
+
+
+REJECTED
+================================================================================

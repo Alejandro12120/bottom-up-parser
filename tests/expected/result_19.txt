@@ -1,0 +1,1 @@
+ERROR: Empty words are not supported.
