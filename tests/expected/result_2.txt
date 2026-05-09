@@ -1,0 +1,67 @@
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : b
+FOREST
+[0] a
+[1] b
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : b
+FOREST
+[0] S/2
+    └── a
+[1] b
+
+STEP 3
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : Sb
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] b
+
+STEP 4
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+
+STEP 5
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+
+
+ACCEPTED
+
+FINAL PARSE TREE
+
+S/1
+├── S/2
+│   └── a
+└── A/4
+    └── b
+
+REVERSED RIGHTMOST DERIVATION
+
+(2,4,1)
+================================================================================

@@ -1,0 +1,1 @@
+ERROR: Grammar error at line 1: expected START declaration in format 'START <symbol>', found 'S -> S A / a'

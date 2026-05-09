@@ -1,5 +1,6 @@
 from components.forest_builder import ForestBuilder
 from components.output_formatter import OutputFormatter
+from components.output_writer import OutputWriter
 from models.grammar.grammar import Grammar
 from models.parser.backtrack_frame import BacktrackFrame
 from models.parser.match import Match
@@ -9,9 +10,16 @@ from models.parser.parser_state import ParserState
 
 class ParserEngine:
 
-    def __init__(self, grammar: Grammar, forest_builder: ForestBuilder):
+    def __init__(self, grammar: Grammar, forest_builder: ForestBuilder, output_writer: OutputWriter):
+        """This method initializes the parser engine.
+
+        :param grammar: The grammar used by the parser
+        :param forest_builder: The forest builder used to update parser states
+        :param output_writer: The output writer used to write parser steps
+        """
         self.__grammar = grammar
         self.__forest_builder = forest_builder
+        self.__output_writer = output_writer
         self.__step_counter = 0
         self.__input_symbols: list[str] = []
 
@@ -70,12 +78,13 @@ class ParserEngine:
                 self.__forest_builder.apply_reduction(match)
 
                 self.__step_counter += 1
-                OutputFormatter.record_step(
+                self.__output_writer.write(OutputFormatter.record_step(
                     step_number=self.__step_counter,
                     action="REDUCE",
                     state=candidate_state,
                     production=match.production.format()
-                )
+                ))
+                self.__output_writer.write()
 
                 # We apply recursion
                 result = self.__search(candidate_state)
@@ -87,12 +96,13 @@ class ParserEngine:
                 self.__forest_builder.state = restored_state
 
                 self.__step_counter += 1
-                OutputFormatter.record_step(
+                self.__output_writer.write(OutputFormatter.record_step(
                     step_number=self.__step_counter,
                     action="BACKTRACK",
                     state=restored_state,
                     undo=match.production.format(),
-                )
+                ))
+                self.__output_writer.write()
 
                 # if match_index < len(matches) - 1:
                 #     frame.alternatives = matches[match_index + 1:]
@@ -106,12 +116,13 @@ class ParserEngine:
                 self.__forest_builder.apply_shift(symbol)
 
                 self.__step_counter += 1
-                OutputFormatter.record_step(
+                self.__output_writer.write(OutputFormatter.record_step(
                     step_number=self.__step_counter,
                     action="SHIFT",
                     state=shifted_state,
                     symbol=symbol,
-                )
+                ))
+                self.__output_writer.write()
 
                 return self.__search(shifted_state)
 
@@ -123,12 +134,13 @@ class ParserEngine:
             self.__forest_builder.apply_shift(symbol)
 
             self.__step_counter += 1
-            OutputFormatter.record_step(
+            self.__output_writer.write(OutputFormatter.record_step(
                 step_number=self.__step_counter,
                 action="SHIFT",
                 state=shifted_state,
                 symbol=symbol,
-            )
+            ))
+            self.__output_writer.write()
 
             return self.__search(shifted_state)
         return None
@@ -170,4 +182,16 @@ class ParserEngine:
 
     @property
     def step_counter(self):
+        """This method returns the number of parser steps.
+
+        :returns: The number of parser steps
+        """
         return self.__step_counter
+#
+#    @property
+#    def forest_builder(self):
+#        return self.__forest_builder
+#
+#    @forest_builder.setter
+#    def forest_builder(self, forest_builder: ForestBuilder):
+#        self.__forest_builder = forest_builder

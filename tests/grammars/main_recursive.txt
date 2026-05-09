@@ -1,0 +1,3 @@
+START S
+S -> S A / a
+A -> A b S / b

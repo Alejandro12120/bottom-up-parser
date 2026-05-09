@@ -1,0 +1,2820 @@
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : 
+FOREST
+[0] a
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+
+
+ACCEPTED
+
+FINAL PARSE TREE
+
+S/2
+└── a
+
+REVERSED RIGHTMOST DERIVATION
+
+(2)
+================================================================================
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : b
+FOREST
+[0] a
+[1] b
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : b
+FOREST
+[0] S/2
+    └── a
+[1] b
+
+STEP 3
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : Sb
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] b
+
+STEP 4
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+
+STEP 5
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+
+
+ACCEPTED
+
+FINAL PARSE TREE
+
+S/1
+├── S/2
+│   └── a
+└── A/4
+    └── b
+
+REVERSED RIGHTMOST DERIVATION
+
+(2,4,1)
+================================================================================
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : bb
+FOREST
+[0] a
+[1] b
+[2] b
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : bb
+FOREST
+[0] S/2
+    └── a
+[1] b
+[2] b
+
+STEP 3
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : Sb
+FRONTIER : b
+FOREST
+[0] S/2
+    └── a
+[1] b
+[2] b
+
+STEP 4
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : b
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+
+STEP 5
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : b
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+
+STEP 6
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : Sb
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+
+STEP 7
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+
+STEP 8
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+
+
+ACCEPTED
+
+FINAL PARSE TREE
+
+S/1
+├── S/1
+│   ├── S/2
+│   │   └── a
+│   └── A/4
+│       └── b
+└── A/4
+    └── b
+
+REVERSED RIGHTMOST DERIVATION
+
+(2,4,1,4,1)
+================================================================================
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : bba
+FOREST
+[0] a
+[1] b
+[2] b
+[3] a
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : bba
+FOREST
+[0] S/2
+    └── a
+[1] b
+[2] b
+[3] a
+
+STEP 3
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : Sb
+FRONTIER : ba
+FOREST
+[0] S/2
+    └── a
+[1] b
+[2] b
+[3] a
+
+STEP 4
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : ba
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 5
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : ba
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 6
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : Sb
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 7
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 8
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 9
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 10
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 11
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 12
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SA
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 13
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 14
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 15
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 16
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 17
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 18
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 19
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 20
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 21
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 22
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : Sb
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 23
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 24
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 25
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 26
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 27
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 28
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 29
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 30
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 31
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 32
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 33
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 34
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 35
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 36
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 37
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 38
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 39
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 40
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SA
+FRONTIER : ba
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 41
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : SAb
+FRONTIER : a
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 42
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sb
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 43
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SA
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 44
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 45
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 46
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 47
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 48
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SA
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 49
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 50
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 51
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 52
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 53
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 54
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 55
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 56
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 57
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 58
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : Sb
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 59
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 60
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 61
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 62
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 63
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 64
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 65
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 66
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 67
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 68
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 69
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 70
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 71
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 72
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 73
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 74
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 75
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 76
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAb
+FRONTIER : a
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 77
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAA
+FRONTIER : a
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 78
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SA
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 79
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 80
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 81
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 82
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 83
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SA
+FRONTIER : a
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 84
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 85
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 86
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 87
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 88
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 89
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 90
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 91
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 92
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 93
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAA
+FRONTIER : a
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 94
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : SAAa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 95
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 96
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 97
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 98
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 99
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 100
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 101
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 102
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 103
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 104
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAAa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 105
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAAS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] S/2
+    └── a
+
+STEP 106
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 107
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 108
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 109
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAAS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] S/2
+    └── a
+
+STEP 110
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAAa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 111
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : SAb
+FRONTIER : a
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 112
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : SAba
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 113
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 114
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 115
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 116
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 117
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 118
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 119
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 120
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 121
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 122
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 123
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 124
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 125
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 126
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 127
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 128
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 129
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sba
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] a
+
+STEP 130
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAba
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 131
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAAa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 132
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 133
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 134
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 135
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] a
+
+STEP 136
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 137
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 138
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 139
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 140
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAa
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] a
+
+STEP 141
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAAa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 142
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAAS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] S/2
+    └── a
+
+STEP 143
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 144
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 145
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 146
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAAS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] S/2
+    └── a
+
+STEP 147
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : SAAa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] A/4
+    └── b
+[3] a
+
+STEP 148
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : SAba
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] a
+
+STEP 149
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SAbS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] S/2
+    └── a
+
+STEP 150
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 151
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 152
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/1
+    │   ├── S/2
+    │   │   └── a
+    │   └── A/4
+    │       └── b
+    └── A/4
+        └── b
+[1] S/2
+    └── a
+
+STEP 153
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] A/4
+    └── b
+[2] S/2
+    └── a
+
+STEP 154
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : SbS
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/4
+        └── b
+[1] b
+[2] S/2
+    └── a
+
+STEP 155
+ACTION : BACKTRACK
+UNDO : 1) S -> S A
+WORKING PART : SAbS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/4
+    └── b
+[2] b
+[3] S/2
+    └── a
+
+STEP 156
+ACTION : REDUCE
+PRODUCTION: 3) A -> A b S
+WORKING PART : SA
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] A/3
+    ├── A/4
+    │   └── b
+    ├── b
+    └── S/2
+        └── a
+
+STEP 157
+ACTION : REDUCE
+PRODUCTION: 1) S -> S A
+WORKING PART : S
+FRONTIER : 
+FOREST
+[0] S/1
+    ├── S/2
+    │   └── a
+    └── A/3
+        ├── A/4
+        │   └── b
+        ├── b
+        └── S/2
+            └── a
+
+
+ACCEPTED
+
+FINAL PARSE TREE
+
+S/1
+├── S/2
+│   └── a
+└── A/3
+    ├── A/4
+    │   └── b
+    ├── b
+    └── S/2
+        └── a
+
+REVERSED RIGHTMOST DERIVATION
+
+(2,4,2,3,1)
+================================================================================
+STEP 1
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : a
+FRONTIER : a
+FOREST
+[0] a
+[1] a
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : S
+FRONTIER : a
+FOREST
+[0] S/2
+    └── a
+[1] a
+
+STEP 3
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] a
+
+STEP 4
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] S/2
+    └── a
+
+STEP 5
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] a
+
+STEP 6
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : a
+FRONTIER : a
+FOREST
+[0] a
+[1] a
+
+STEP 7
+ACTION : SHIFT
+SYMBOL : a
+WORKING PART : aa
+FRONTIER : 
+FOREST
+[0] a
+[1] a
+
+STEP 8
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] a
+
+STEP 9
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] S/2
+    └── a
+
+STEP 10
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : Sa
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] a
+
+STEP 11
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : aa
+FRONTIER : 
+FOREST
+[0] a
+[1] a
+
+STEP 12
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : aS
+FRONTIER : 
+FOREST
+[0] a
+[1] S/2
+    └── a
+
+STEP 13
+ACTION : REDUCE
+PRODUCTION: 2) S -> a
+WORKING PART : SS
+FRONTIER : 
+FOREST
+[0] S/2
+    └── a
+[1] S/2
+    └── a
+
+STEP 14
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : aS
+FRONTIER : 
+FOREST
+[0] a
+[1] S/2
+    └── a
+
+STEP 15
+ACTION : BACKTRACK
+UNDO : 2) S -> a
+WORKING PART : aa
+FRONTIER : 
+FOREST
+[0] a
+[1] a
+
+
+REJECTED
+================================================================================
+STEP 1
+ACTION : SHIFT
+SYMBOL : b
+WORKING PART : b
+FRONTIER : 
+FOREST
+[0] b
+
+STEP 2
+ACTION : REDUCE
+PRODUCTION: 4) A -> b
+WORKING PART : A
+FRONTIER : 
+FOREST
+[0] A/4
+    └── b
+
+STEP 3
+ACTION : BACKTRACK
+UNDO : 4) A -> b
+WORKING PART : b
+FRONTIER : 
+FOREST
+[0] b
+
+
+REJECTED
+================================================================================
