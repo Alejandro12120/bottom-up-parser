@@ -1,0 +1,1 @@
+ERROR: Grammar error at line 2: expected one uppercase nonterminal on the left side, found 's'

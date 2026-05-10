@@ -170,11 +170,27 @@ class GrammarManager:
         if len(left_symbols) != 1:
             GrammarManager.raise_grammar_error(
                 line=line,
-                expected="exactly one nonterminal on the left side",
+                expected="exactly one uppercase nonterminal on the left side",
+                found=left_side,
+            )
+
+        if not GrammarManager.is_valid_nonterminal(left_side):
+            GrammarManager.raise_grammar_error(
+                line=line,
+                expected="one uppercase nonterminal on the left side",
                 found=left_side,
             )
 
         return left_side, arrow, right_part
+
+    @staticmethod
+    def is_valid_nonterminal(symbol: str) -> bool:
+        """This function checks if a symbol is a valid nonterminal.
+
+        :param symbol: The symbol to check
+        :returns: True if the symbol is one uppercase character, False if not
+        """
+        return len(symbol) == 1 and symbol.isupper()
 
     @staticmethod
     def get_nonterminals(production_lines: list[GrammarLine]) -> set[str]:
@@ -188,13 +204,6 @@ class GrammarManager:
 
         for line in production_lines:
             left_side, _, _ = GrammarManager.split_production(line)
-            if len(left_side) > 1:
-                GrammarManager.raise_grammar_error(
-                    line=line,
-                    expected="context-free production with one-symbol left side",
-                    found=left_side,
-                )
-
             nonterminals.add(left_side)
 
         return nonterminals

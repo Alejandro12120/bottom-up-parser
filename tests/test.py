@@ -221,6 +221,12 @@ if __name__ == "__main__":
             grammar_path="grammars/simple_valid.txt",
             expected_path="expected/result_19.txt",
         ),
+        FunctionalTest(
+            id="#20",
+            words_path="words/a.txt",
+            grammar_path="grammars/lowercase_left_side.txt",
+            expected_path="expected/result_20.txt",
+        ),
     ]
 
     passed = 0

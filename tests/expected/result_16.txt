@@ -1,1 +1,1 @@
-ERROR: Grammar error at line 2: expected exactly one nonterminal on the left side, found 'A B'
+ERROR: Grammar error at line 2: expected exactly one uppercase nonterminal on the left side, found 'A B'
