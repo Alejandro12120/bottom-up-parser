@@ -149,7 +149,7 @@ class ParserEngine:
         """This method finds all the possible matches in a specific ParserState, and returns a list.
 
         :param state: A ParserState object
-        :returns: The list of possible matchesTODO
+        :returns: The list of possible matches
         """
         matches: list[Match] = []
         working_symbols = [node.symbol for node in state.consumed]

@@ -231,7 +231,7 @@ class GrammarManager:
                         expected="non-empty alternative after '/'",
                     )
 
-                symbols = alternative.split()  # TODO: review, this, maybe is better the format S -> As / Bc
+                symbols = alternative.split()
                 if not symbols or 'ε' in symbols:
                     GrammarManager.raise_grammar_error(
                         line=line,
