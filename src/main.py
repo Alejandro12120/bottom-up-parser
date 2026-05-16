@@ -12,7 +12,7 @@ from models.parser.parser_state import ParserState
 if __name__ == "__main__":
     writer = None
     try:
-        if len(sys.argv) == 4:
+        if 4 <= len(sys.argv) <= 5:
             writer = OutputWriter(sys.argv[3])
 
         input_reader = InputReader(sys.argv)
@@ -36,7 +36,8 @@ if __name__ == "__main__":
                     remaining_input=list(input_symbols),
                     right_most_derivation_hist=[],
                 )),
-                output_writer=writer
+                output_writer=writer,
+                detailed_output=input_reader.detailed_output
             )
 
             result = engine.parse(input_symbols)

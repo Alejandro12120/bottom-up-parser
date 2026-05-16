@@ -10,16 +10,18 @@ from models.parser.parser_state import ParserState
 
 class ParserEngine:
 
-    def __init__(self, grammar: Grammar, forest_builder: ForestBuilder, output_writer: OutputWriter):
+    def __init__(self, grammar: Grammar, forest_builder: ForestBuilder, output_writer: OutputWriter, detailed_output: bool):
         """This method initializes the parser engine.
 
         :param grammar: The grammar used by the parser
         :param forest_builder: The forest builder used to update parser states
         :param output_writer: The output writer used to write parser steps
+        :param detailed_output: True if the parser should print each step
         """
         self.__grammar = grammar
         self.__forest_builder = forest_builder
         self.__output_writer = output_writer
+        self.__detailed_output = detailed_output
         self.__step_counter = 0
         self.__input_symbols: list[str] = []
 
@@ -78,13 +80,14 @@ class ParserEngine:
                 self.__forest_builder.apply_reduction(match)
 
                 self.__step_counter += 1
-                self.__output_writer.write(OutputFormatter.record_step(
-                    step_number=self.__step_counter,
-                    action="REDUCE",
-                    state=candidate_state,
-                    production=match.production.format()
-                ))
-                self.__output_writer.write()
+                if self.__detailed_output:
+                    self.__output_writer.write(OutputFormatter.record_step(
+                        step_number=self.__step_counter,
+                        action="REDUCE",
+                        state=candidate_state,
+                        production=match.production.format()
+                    ))
+                    self.__output_writer.write()
 
                 # We apply recursion
                 result = self.__search(candidate_state)
@@ -96,13 +99,14 @@ class ParserEngine:
                 self.__forest_builder.state = restored_state
 
                 self.__step_counter += 1
-                self.__output_writer.write(OutputFormatter.record_step(
-                    step_number=self.__step_counter,
-                    action="BACKTRACK",
-                    state=restored_state,
-                    undo=match.production.format(),
-                ))
-                self.__output_writer.write()
+                if self.__detailed_output:
+                    self.__output_writer.write(OutputFormatter.record_step(
+                        step_number=self.__step_counter,
+                        action="BACKTRACK",
+                        state=restored_state,
+                        undo=match.production.format(),
+                    ))
+                    self.__output_writer.write()
 
                 # if match_index < len(matches) - 1:
                 #     frame.alternatives = matches[match_index + 1:]
@@ -116,13 +120,14 @@ class ParserEngine:
                 self.__forest_builder.apply_shift(symbol)
 
                 self.__step_counter += 1
-                self.__output_writer.write(OutputFormatter.record_step(
-                    step_number=self.__step_counter,
-                    action="SHIFT",
-                    state=shifted_state,
-                    symbol=symbol,
-                ))
-                self.__output_writer.write()
+                if self.__detailed_output:
+                    self.__output_writer.write(OutputFormatter.record_step(
+                        step_number=self.__step_counter,
+                        action="SHIFT",
+                        state=shifted_state,
+                        symbol=symbol,
+                    ))
+                    self.__output_writer.write()
 
                 return self.__search(shifted_state)
 
@@ -134,13 +139,14 @@ class ParserEngine:
             self.__forest_builder.apply_shift(symbol)
 
             self.__step_counter += 1
-            self.__output_writer.write(OutputFormatter.record_step(
-                step_number=self.__step_counter,
-                action="SHIFT",
-                state=shifted_state,
-                symbol=symbol,
-            ))
-            self.__output_writer.write()
+            if self.__detailed_output:
+                self.__output_writer.write(OutputFormatter.record_step(
+                    step_number=self.__step_counter,
+                    action="SHIFT",
+                    state=shifted_state,
+                    symbol=symbol,
+                ))
+                self.__output_writer.write()
 
             return self.__search(shifted_state)
         return None

@@ -13,13 +13,17 @@ class InputReader:
         self.__grammar_text: str = ""
         self.__output_path: str = ""
         self.__input_words: list[str] = []
+        self.__detailed_output: bool = True
+
 
     def read_input(self):
         """This method reads and stores the grammar, words and output path from the CLI arguments."""
-        if len(self.__argv) != 4:
-            ErrorHandler.raise_error("Expected 3 CLI parameters.")
+        if not (4 <= len(self.__argv) <= 5):
+            ErrorHandler.raise_error("Expected at least 3 CLI parameters.")
 
         grammar_path, words_path, output_path = self.__argv[1], self.__argv[2], self.__argv[3]
+        if len(self.__argv) == 5:
+            self.__detailed_output = (self.__argv[4] == "True" or self.__argv[4] == "true")
 
         self.__grammar_text = InputReader.read_grammar_file(grammar_path)
         self.__output_path = output_path
@@ -49,6 +53,14 @@ class InputReader:
         :returns: A list of input words
         """
         return self.__input_words
+
+    @property
+    def detailed_output(self):
+        """This method returns whether detailed parser output is enabled.
+
+        :returns: True if detailed parser output is enabled, False if not
+        """
+        return self.__detailed_output
 
     @staticmethod
     def read_words_file(words_path: str) -> list[str]:
