@@ -188,7 +188,3 @@ tests/
 - Only syntax analysis is performed; semantic analysis, optimization, and code generation
   are out of scope.
 - Rejected words are normal parser results, not errors.
-
-## Author
-
-Alejandro Rodríguez González — [gitlab-stud.elka.pw.edu.pl/ecote_2026l_101lab/ecote2026l_arodrigu](https://gitlab-stud.elka.pw.edu.pl/ecote_2026l_101lab/ecote2026l_arodrigu)
